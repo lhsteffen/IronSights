@@ -19,9 +19,9 @@ cluttered apps, a simple notepad app, or stacks of paper.
 
 This project requires the Flutter SDK in order to change or run.
 
-In order to install and set up Flutter, follow the guide found at:
+In order to install and set up Flutter, follow the guide found at the following link:
 
-- [Install](https://flutter.dev/docs/get-started/install)
+- [Install Flutter](https://flutter.dev/docs/get-started/install)
 
 Once Flutter is installed, clone the repository and open it in the editor chosen to 
 run Flutter. If any issues opening the project arise, opening the project in Android 
