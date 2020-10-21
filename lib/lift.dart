@@ -68,6 +68,8 @@ class Lift {
       this.light = this.light + 5;
     } else if (type == "heavy") {
       this.heavy = this.heavy + 5;
+    } else {
+      print("ERROR: Incorrect addition, increaseByFive(String type)");
     }
   }
   // End change functions

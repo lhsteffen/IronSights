@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _children = [
     HomepageWidget(),
     RoutinepageWidget(),
-    LiftpageWidget()
+    LiftPageWidget()
   ];
 
   @override
