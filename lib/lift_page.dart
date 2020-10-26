@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'lift_view.dart';
+import 'test_list.dart';
+import 'lift.dart';
 
 class LiftPageWidget extends StatelessWidget {
 
@@ -18,26 +21,17 @@ class ListDisplay extends StatefulWidget {
 }
 
 class DynamicList extends State<ListDisplay> {
-  List<String> litems = [];
-  final TextEditingController ctrl = new TextEditingController();
+  List<Lift> litems = createList();
   @override
   Widget build(BuildContext bcntx) {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
-          new TextField (
-            controller: ctrl,
-            onSubmitted: (text) {
-              litems.add(text);
-              ctrl.clear();
-              setState(() {});
-            },
-          ),
           new Expanded(
               child: new ListView.builder (
                 itemCount: litems.length,
                 itemBuilder: (BuildContext bcntx, int Index) {
-                  return new Text(litems[Index]);
+                  return liftView(litems[Index]);
                 },
               )
           )
