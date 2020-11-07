@@ -19,7 +19,8 @@ Container liftView(Lift lift) {
     );
   } else {
     return new Container(
-      child: new Row(
+      height: 75,
+      child: new Column(
         children: <Widget>[
           new Row(
             children: <Widget>[
@@ -40,7 +41,7 @@ Container liftView(Lift lift) {
                 new Column(
                   children: <Widget>[
                     new Container(
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
                         "Light: " + "${lift.getLight()}",
                         style: TextStyle(
@@ -53,7 +54,7 @@ Container liftView(Lift lift) {
                 new Column(
                   children: <Widget>[
                     new Container(
-                      padding: const EdgeInsets.only(bottom: 8),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
                         "Heavy: " + "${lift.getHeavy()}",
                         style: TextStyle(
