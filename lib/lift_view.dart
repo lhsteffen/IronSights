@@ -19,17 +19,22 @@ Container liftView(Lift lift) {
     );
   } else {
     return new Container(
-      height: 75,
+      height: 80,
+      decoration: new BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+      ),
       child: new Column(
         children: <Widget>[
           new Row(
             children: <Widget>[
               new Container(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8, top: 8, left: 10),
                 child: Text(
                   lift.getName(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontSize: 16,
                   ),
                 ),
               )
@@ -41,11 +46,12 @@ Container liftView(Lift lift) {
                 new Column(
                   children: <Widget>[
                     new Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
                       child: Text(
                         "Light: " + "${lift.getLight()}",
                         style: TextStyle(
                           color: Colors.grey[500],
+                          fontSize: 14
                         ),
                       ),
                     )

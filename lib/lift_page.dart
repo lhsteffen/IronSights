@@ -28,8 +28,10 @@ class DynamicList extends State<ListDisplay> {
       body: new Column(
         children: <Widget>[
           new Expanded(
-              child: new ListView.builder (
+              child: new ListView.separated (
+                separatorBuilder: (bcntx, Index) => Divider(),
                 itemCount: litems.length,
+                padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
                 itemBuilder: (BuildContext bcntx, int Index) {
                   return liftView(litems[Index]);
                 },
