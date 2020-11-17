@@ -27,6 +27,29 @@ class DynamicList extends State<ListDisplay> {
     return new Scaffold(
       body: new Column(
         children: <Widget>[
+          new Container(
+            padding: EdgeInsets.only(bottom: 8, top: 8),
+            child: new Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text(
+                  "Order by",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 8, right: 8),
+                  child: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black,
+                      size: 16
+                  ),
+                )
+              ],
+            ),
+          ),
           new Expanded(
               child: new ListView.separated (
                 separatorBuilder: (bcntx, Index) => Divider(),
