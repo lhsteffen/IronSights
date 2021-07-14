@@ -3,7 +3,7 @@
 ## Vision/Intended Application
 
 IronSights is a mobile application created for both Android and IOS platforms 
-using Google's Flutter SDK. IronSights is a weight tracking app meant to help 
+using Google's Flutter toolkit. IronSights is a weight tracking app meant to help 
 those who wish to keep track of the weight of any lift the user desires. IronSights 
 will also allow the user to create weekly routines composed of that user's created 
 lifts. Routines can be selected as a main routine and displayed on the home 
