@@ -5,7 +5,7 @@ import 'lift.dart';
 
 class LiftPageWidget extends StatelessWidget {
 
-  LiftPageWidget();
+  const LiftPageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,20 +16,22 @@ class LiftPageWidget extends StatelessWidget {
 }
 
 class ListDisplay extends StatefulWidget {
+  const ListDisplay({super.key});
+
   @override
-  State createState() => new DynamicList();
+  State createState() => DynamicList();
 }
 
 class DynamicList extends State<ListDisplay> {
   List<Lift> litems = createList();
   @override
   Widget build(BuildContext bcntx) {
-    return new Scaffold(
-      body: new Column(
+    return Scaffold(
+      body: Column(
         children: <Widget>[
-          new Container(
+          Container(
             padding: EdgeInsets.only(bottom: 8, top: 8),
-            child: new Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
@@ -50,8 +52,8 @@ class DynamicList extends State<ListDisplay> {
               ],
             ),
           ),
-          new Expanded(
-              child: new ListView.separated (
+          Expanded(
+              child: ListView.separated (
                 separatorBuilder: (bcntx, Index) => Divider(),
                 itemCount: litems.length,
                 padding: EdgeInsets.only(top: 8.0, bottom: 12.0),

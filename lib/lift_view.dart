@@ -13,22 +13,22 @@ import 'package:flutter/material.dart';
 import 'lift.dart';
 
 GestureDetector liftView(Lift lift) {
-  return new GestureDetector (
+  return GestureDetector (
     onTap: () {
       print("Click");
     },
-    child: new Container(
+    child: Container(
       height: 80,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: new Column(
+      child: Column(
         children: <Widget>[
-          new Row(
+          Row(
             children: <Widget>[
-              new Expanded(
-                child: new Container(
+              Expanded(
+                child: Container(
                   padding: const EdgeInsets.only(bottom: 8, top: 8, left: 10),
                   child: Text(
                     lift.getName(),
@@ -39,7 +39,7 @@ GestureDetector liftView(Lift lift) {
                   ),
                 ),
               ),
-              new Container (
+              Container (
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(
                   Icons.edit,
@@ -49,11 +49,11 @@ GestureDetector liftView(Lift lift) {
               )
             ],
           ),
-          new Expanded(
-            child: new Row(
+          Expanded(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                new Container(
+                Container(
                   padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
                   child: RichText(
                     text: TextSpan(
@@ -74,9 +74,9 @@ GestureDetector liftView(Lift lift) {
                     ),
                   ),
                 ),
-                new Expanded(
-                  child: new Center (
-                    child: new Container(
+                Expanded(
+                  child: Center (
+                    child: Container(
                       child: RichText(
                         text: TextSpan(
                           children: <TextSpan>[

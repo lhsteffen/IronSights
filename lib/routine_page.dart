@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class RoutinepageWidget extends StatelessWidget {
 
-  RoutinepageWidget();
+  const RoutinepageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

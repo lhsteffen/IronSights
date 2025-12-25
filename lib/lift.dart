@@ -12,33 +12,27 @@ class Lift {
   int heavy;
   String desc;
 
-  Lift(String name, bool barbell, int light, int heavy, String desc) {
-    this.name = name;
-    this.barbell = barbell;
-    this.light = light;
-    this.heavy = heavy;
-    this.desc = desc;
-  }
+  Lift(this.name, this.barbell, this.light, this.heavy, this.desc);
 
   // Begin getter functions
   String getName() {
-    return this.name;
+    return name;
   }
 
   bool isBarbell() {
-    return this.barbell;
+    return barbell;
   }
 
   int getLight() {
-    return this.light;
+    return light;
   }
 
   int getHeavy() {
-    return this.heavy;
+    return heavy;
   }
 
   String getDescription() {
-    return this.desc;
+    return desc;
   }
   // End getter functions
 
@@ -65,9 +59,9 @@ class Lift {
 
   void increaseByFive(String type) {
     if (type == "light") {
-      this.light = this.light + 5;
+      light = light + 5;
     } else if (type == "heavy") {
-      this.heavy = this.heavy + 5;
+      heavy = heavy + 5;
     } else {
       print("ERROR: Incorrect addition, increaseByFive(String type)");
     }
@@ -76,8 +70,8 @@ class Lift {
 
   Map<double, int> getPlatesLight() {
 
-    var plates = new Map();
-    int weight = this.light - 45;
+    Map<double, int> plates = {};
+    int weight = light - 45;
     int fortyFive = 0;
     int thirtyFive = 0;
     int twentyFive = 0;
@@ -119,8 +113,8 @@ class Lift {
 
   Map<double, int> getPlatesHeavy() {
 
-    var plates = new Map();
-    int weight = this.heavy - 45;
+    Map<double, int> plates = {};
+    int weight = heavy - 45;
     int fortyFive = 0;
     int thirtyFive = 0;
     int twentyFive = 0;

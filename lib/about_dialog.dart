@@ -4,12 +4,11 @@
  */
 
 import 'package:flutter/material.dart';
-import 'lift.dart';
 
 Widget _buildAboutDialog(BuildContext context) {
-  return new AlertDialog(
+  return AlertDialog(
     title: const Text("Pop up on lift"),
-    content: new Column(
+    content: Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

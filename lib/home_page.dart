@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class HomepageWidget extends StatelessWidget {
 
-  HomepageWidget();
+  const HomepageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
