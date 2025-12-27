@@ -23,7 +23,7 @@ class ListDisplay extends StatefulWidget {
 }
 
 class DynamicList extends State<ListDisplay> {
-  List<Lift> litems = createList();
+  List<Lift> liftems = createList();
   @override
   Widget build(BuildContext bcntx) {
     return Scaffold(
@@ -55,10 +55,10 @@ class DynamicList extends State<ListDisplay> {
           Expanded(
               child: ListView.separated (
                 separatorBuilder: (bcntx, Index) => Divider(),
-                itemCount: litems.length,
+                itemCount: liftems.length,
                 padding: EdgeInsets.only(top: 8.0, bottom: 12.0),
                 itemBuilder: (BuildContext bcntx, int Index) {
-                  return liftView(litems[Index]);
+                  return liftView(liftems[Index]);
                 },
               )
           )
