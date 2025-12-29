@@ -27,7 +27,28 @@ class LiftView extends StatelessWidget {
       itemBuilder: (BuildContext buildContext, int index) {
         return GestureDetector(
           onTap: () {
-            print("Click");
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return LiftDetails(lift: lifts[index]);
+                // return SizedBox(
+                //   height: MediaQuery.of(context).size.height,
+                //   child: Center(
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       mainAxisSize: MainAxisSize.min,
+                //       children: <Widget>[
+                //         Text("Heavy: ${lifts[index].heavy} Light: ${lifts[index].light}"),
+                //         ElevatedButton(
+                //           child: const Text('Close BottomSheet'),
+                //           onPressed: () => Navigator.pop(context),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // );
+              }
+            );
           },
           onDoubleTap: () {
             print("Edit");
@@ -113,6 +134,36 @@ class LiftView extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class LiftDetails extends StatelessWidget {
+  const LiftDetails({super.key, required this.lift});
+  const LiftDetails.otherConstructor(this.lift);
+
+  final Lift lift;
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          // appBar: AppBar(title: Text(lift.name),),
+          child: Column(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.expand_more_rounded)),
+              Center(
+                child: Text("Heavy: ${lift.heavy} Light: ${lift.light}"),
+              ),
+            ]
+          )
+        ),
     );
   }
 }
