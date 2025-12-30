@@ -20,7 +20,7 @@ class LiftList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<IronState>();
-    List<Lift> lifts = appState.LiftItems;
+    List<Lift> lifts = appState.liftItems;
 
     return Scaffold(
         body: Column(

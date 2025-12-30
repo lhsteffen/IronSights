@@ -18,7 +18,7 @@ class LiftView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<IronState>();
-    List<Lift> lifts = appState.LiftItems;
+    List<Lift> lifts = appState.liftItems;
 
     return ListView.separated(
       separatorBuilder: (buildContext, index) => Divider(),
@@ -29,24 +29,12 @@ class LiftView extends StatelessWidget {
           onTap: () {
             showModalBottomSheet<void>(
               context: context,
-              builder: (BuildContext context) {
-                return LiftDetails(lift: lifts[index]);
-                // return SizedBox(
-                //   height: MediaQuery.of(context).size.height,
-                //   child: Center(
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.center,
-                //       mainAxisSize: MainAxisSize.min,
-                //       children: <Widget>[
-                //         Text("Heavy: ${lifts[index].heavy} Light: ${lifts[index].light}"),
-                //         ElevatedButton(
-                //           child: const Text('Close BottomSheet'),
-                //           onPressed: () => Navigator.pop(context),
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // );
+                isScrollControlled: true,
+                useSafeArea: true,
+                builder: (BuildContext context) {
+                return SafeArea(
+                    child: LiftDetails(lift: lifts[index]),
+                );
               }
             );
           },
@@ -149,18 +137,115 @@ class LiftDetails extends StatelessWidget {
     return SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          // appBar: AppBar(title: Text(lift.name),),
           child: Column(
             children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.expand_more_rounded)),
-              Center(
-                child: Text("Heavy: ${lift.heavy} Light: ${lift.light}"),
+              Row(
+                children: [
+                  Expanded(
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.expand_more_rounded)
+                    ),
+                  ),
+                  Expanded(
+                    child: IconButton(
+                      onPressed: () {
+                        print("More options!");
+                      },
+                      icon: Icon(Icons.more_vert)
+                    ),
+                  ),
+                ],
               ),
+              Text(lift.name),
+              Row(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: "Heavy: ",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: "${lift.heavy} lbs",
+                              style: TextStyle(color: Colors.black87)
+                          ),
+                        ]
+                    ),
+                  ),
+                  RichText(
+                    text: TextSpan(
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: "Light: ",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                          ),
+                          TextSpan(
+                              text: "${lift.light} lbs",
+                              style: TextStyle(color: Colors.black87)
+                          ),
+                        ]
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  RichText(
+                      text: TextSpan(
+                        text: "Barbell: ",
+                        style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                      )
+                  ),
+                  Checkbox(
+                      value: lift.isBarbell(),
+                      onChanged: (bool? value) {
+                        print("check");
+                      },
+                  )
+                ],
+              ),
+              if (lift.barbell)
+                Row(
+                  children: [
+                    RichText(
+                        text: TextSpan(
+                          text: "Plates: ",
+                          style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                        )
+                    )
+                  ],
+                ),
+              Expanded(
+                child: Column(
+                  children: [
+                    RichText(
+                        text: TextSpan(
+                            text: "Description: ",
+                            style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                        )
+                    ),
+                    Expanded(
+                        child: Container(
+                          width: MediaQuery.sizeOf(context).width - 10.0,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)
+                          ),
+                          child: Text(lift.desc),
+                        ),
+                    ),
+                  ],
+                ),
+              ),
+              RichText(
+                  text: TextSpan(
+                    text: "Routines: ",
+                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                  )
+              )
             ]
           )
         ),
