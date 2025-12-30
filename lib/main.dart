@@ -30,10 +30,10 @@ class IronSights extends StatelessWidget {
 }
 
 class IronState extends ChangeNotifier {
-  List<Lift> LiftItems = createList();
+  List<Lift> liftItems = createList();
 
   void addLift(Lift newLift) {
-    LiftItems.add(newLift);
+    liftItems.add(newLift);
     notifyListeners();
   }
 }
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
           onTabTapped(index);
         },
         selectedIndex: _currentIndex,
-        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
         destinations: const <Widget>[
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
