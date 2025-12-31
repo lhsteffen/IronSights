@@ -29,11 +29,12 @@ class LiftView extends StatelessWidget {
           onTap: () {
             showModalBottomSheet<void>(
               context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                builder: (BuildContext context) {
+              isScrollControlled: true,
+              useSafeArea: true,
+              shape: BeveledRectangleBorder(),
+              builder: (BuildContext context) {
                 return SafeArea(
-                    child: LiftDetails(lift: lifts[index]),
+                  child: LiftDetails(lift: lifts[index]),
                 );
               }
             );
@@ -137,116 +138,127 @@ class LiftDetails extends StatelessWidget {
     return SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          child: Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(Icons.expand_more_rounded)
-                    ),
-                  ),
-                  Expanded(
-                    child: IconButton(
-                      onPressed: () {
-                        print("More options!");
-                      },
-                      icon: Icon(Icons.more_vert)
-                    ),
-                  ),
-                ],
-              ),
-              Text(lift.name),
-              Row(
-                children: [
-                  RichText(
-                    text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "Heavy: ",
-                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: "${lift.heavy} lbs",
-                              style: TextStyle(color: Colors.black87)
-                          ),
-                        ]
-                    ),
-                  ),
-                  RichText(
-                    text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                              text: "Light: ",
-                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                          ),
-                          TextSpan(
-                              text: "${lift.light} lbs",
-                              style: TextStyle(color: Colors.black87)
-                          ),
-                        ]
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  RichText(
-                      text: TextSpan(
-                        text: "Barbell: ",
-                        style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                      )
-                  ),
-                  Checkbox(
-                      value: lift.isBarbell(),
-                      onChanged: (bool? value) {
-                        print("check");
-                      },
-                  )
-                ],
-              ),
-              if (lift.barbell)
-                Row(
+          child: Expanded(
+              child: Column(
                   children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: Icon(Icons.expand_more_rounded),
+                          iconSize: 32,
+                        ),
+                        Expanded(
+                            child: SizedBox()
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            print("More options!");
+                          },
+                          icon: Icon(Icons.more_vert),
+                        ),
+                      ],
+                    ),
                     RichText(
                         text: TextSpan(
-                          text: "Plates: ",
-                          style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            text: lift.name,
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)
                         )
-                    )
-                  ],
-                ),
-              Expanded(
-                child: Column(
-                  children: [
-                    RichText(
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: RichText(
+                            text: TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: "Heavy: ",
+                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                  ),
+                                  TextSpan(
+                                      text: "${lift.heavy} lbs",
+                                      style: TextStyle(color: Colors.black87)
+                                  ),
+                                ]
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 24,),
+                        RichText(
+                          text: TextSpan(
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: "Light: ",
+                                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                ),
+                                TextSpan(
+                                    text: "${lift.light} lbs",
+                                    style: TextStyle(color: Colors.black87)
+                                ),
+                              ]
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        RichText(
+                            text: TextSpan(
+                                text: "Barbell: ",
+                                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            )
+                        ),
+                        Checkbox(
+                          value: lift.isBarbell(),
+                          onChanged: (bool? value) {
+                            print("check");
+                          },
+                        )
+                      ],
+                    ),
+                    if (lift.barbell)
+                      Row(
+                        children: [
+                          RichText(
+                              text: TextSpan(
+                                  text: "Plates: ",
+                                  style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                              )
+                          )
+                        ],
+                      ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: RichText(
                         text: TextSpan(
-                            text: "Description: ",
+                            text: "Description:",
                             style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                        )
+                        ),
+                      ),
                     ),
-                    Expanded(
+                    Flexible(
                         child: Container(
+                          constraints: BoxConstraints(minHeight: 200, maxHeight: 200),
                           width: MediaQuery.sizeOf(context).width - 10.0,
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black)
+                            border: Border.all(color: Colors.black)
                           ),
                           child: Text(lift.desc),
-                        ),
+                        )
                     ),
-                  ],
-                ),
-              ),
-              RichText(
-                  text: TextSpan(
-                    text: "Routines: ",
-                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                  )
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: RichText(
+                          text: TextSpan(
+                              text: "Routines: ",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                          )
+                      ),
+                    ),
+                  ]
               )
-            ]
           )
         ),
     );
