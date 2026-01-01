@@ -155,112 +155,218 @@ class LiftDetails extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            print("More options!");
+                            print("More options");
                           },
                           icon: Icon(Icons.more_vert),
                         ),
                       ],
                     ),
-                    RichText(
-                        text: TextSpan(
-                            text: lift.name,
-                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)
-                        )
+                    Padding(
+                      padding: EdgeInsets.only(bottom: 50),
+                      child: RichText(
+                          text: TextSpan(
+                              text: lift.name,
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20)
+                          )
+                      ),
                     ),
                     Row(
                       children: [
                         Expanded(
-                          child: RichText(
-                            text: TextSpan(
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: "Heavy: ",
-                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                                  ),
-                                  TextSpan(
-                                      text: "${lift.heavy} lbs",
-                                      style: TextStyle(color: Colors.black87)
-                                  ),
-                                ]
+                          child: Center(
+                            child: RichText(
+                              text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "Heavy: ",
+                                        style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                    ),
+                                    TextSpan(
+                                        text: "${lift.heavy} lbs",
+                                        style: TextStyle(color: Colors.black87)
+                                    ),
+                                  ]
+                              ),
                             ),
-                          ),
+                          )
                         ),
                         SizedBox(width: 24,),
-                        RichText(
-                          text: TextSpan(
-                              children: <TextSpan>[
-                                TextSpan(
-                                    text: "Light: ",
-                                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                                ),
-                                TextSpan(
-                                    text: "${lift.light} lbs",
-                                    style: TextStyle(color: Colors.black87)
-                                ),
-                              ]
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        RichText(
-                            text: TextSpan(
-                                text: "Barbell: ",
-                                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                            )
-                        ),
-                        Checkbox(
-                          value: lift.isBarbell(),
-                          onChanged: (bool? value) {
-                            print("check");
-                          },
+                        Expanded(
+                          child: Center(
+                            child: RichText(
+                              text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text: "Light: ",
+                                        style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                    ),
+                                    TextSpan(
+                                        text: "${lift.light} lbs",
+                                        style: TextStyle(color: Colors.black87)
+                                    ),
+                                  ]
+                              ),
+                            ),
+                          )
                         )
                       ],
                     ),
                     if (lift.barbell)
-                      Row(
-                        children: [
-                          RichText(
-                              text: TextSpan(
-                                  text: "Plates: ",
+                      Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Column(
+                          children: [
+                            Center(
+                                child: RichText(
+                                    text: TextSpan(
+                                        text: "Plates",
+                                        style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold, fontSize: 16)
+                                    )
+                                )
+                            ),
+                            Divider(),
+                            Column(
+                              children: [
+                                Text(
+                                  "Heavy",
                                   style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                              )
-                          )
-                        ],
+                                ),
+                                PlateRow(plates: lift.getPlatesHeavy()),
+                                SizedBox(height: 10),
+                                Divider(),
+                                Text(
+                                    "Light",
+                                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                ),
+                                PlateRow(plates: lift.getPlatesLight()),
+                              ],
+                            ),
+                            Divider()
+                          ],
+                        )
                       ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: RichText(
-                        text: TextSpan(
+                    Padding(
+                      padding: EdgeInsets.only(left: 5, top: 30, bottom: 5),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: RichText(
+                          text: TextSpan(
                             text: "Description:",
                             style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                          ),
                         ),
                       ),
                     ),
                     Flexible(
-                        child: Container(
-                          constraints: BoxConstraints(minHeight: 200, maxHeight: 200),
-                          width: MediaQuery.sizeOf(context).width - 10.0,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black)
-                          ),
+                      child: Container(
+                        constraints: BoxConstraints(minHeight: 200, maxHeight: 200),
+                        width: MediaQuery.sizeOf(context).width - 10.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: Offset(0, 3),
+                            )
+                          ],
+                          border: Border.all(color: Colors.black)
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5),
                           child: Text(lift.desc),
-                        )
+                        ),
+                      )
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: RichText(
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: RichText(
                           text: TextSpan(
-                              text: "Routines: ",
-                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            text: "Routines",
+                            style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold, fontSize: 16)
                           )
+                        ),
                       ),
                     ),
+                    // Row(
+                    //   children: [
+                    //     RichText(
+                    //         text: TextSpan(
+                    //             text: "Barbell: ",
+                    //             style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                    //         )
+                    //     ),
+                    //     Checkbox(
+                    //       value: lift.isBarbell(),
+                    //       onChanged: (bool? value) {
+                    //         print("check");
+                    //       },
+                    //     )
+                    //   ],
+                    // ),
                   ]
               )
           )
         ),
+    );
+  }
+}
+
+class PlateRow extends StatelessWidget {
+  const PlateRow({super.key, required this.plates});
+  const PlateRow.otherConstructor(this.plates);
+
+  final Map<double, int> plates;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: plates.entries.map((plate) {
+        if (plate.key == 2.5) {
+          return Expanded(
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "${plate.key}: ",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
+                    ),
+                    TextSpan(
+                      text: "${plate.value}",
+                      style: TextStyle(color: Colors.black)
+                    )
+                  ]
+                )
+              ),
+            )
+          );
+        }
+        else {
+          return Expanded(
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: "${plate.key.toInt()}: ",
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)
+                    ),
+                    TextSpan(
+                      text: "${plate.value}",
+                      style: TextStyle(color: Colors.black)
+                    )
+                  ]
+                )
+              ),
+            )
+          );
+        }
+      }).toList(),
     );
   }
 }

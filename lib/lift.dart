@@ -79,7 +79,7 @@ class Lift {
     int five = 0;
     int twoPointFive = 0;
 
-    while (weight >= 0) {
+    while (weight > 0) {
       if (weight - 90 >= 0) {
         fortyFive += 1;
         weight = weight - 90;
@@ -122,7 +122,7 @@ class Lift {
     int five = 0;
     int twoPointFive = 0;
 
-    while (weight >= 0) {
+    while (weight > 0) {
       if (weight - 90 >= 0) {
         fortyFive += 1;
         weight = weight - 90;
