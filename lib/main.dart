@@ -36,6 +36,17 @@ class IronState extends ChangeNotifier {
     liftItems.add(newLift);
     notifyListeners();
   }
+
+  int getNewestId() {
+    List<Lift> liftCopy = liftItems;
+    if(liftCopy.isNotEmpty) {
+      liftCopy.sort((a, b) => a.getId().compareTo(b.getId()));
+      return liftCopy.last.getId() + 1;
+    }
+    else {
+      return 1;
+    }
+  }
 }
 
 class HomePage extends StatefulWidget {

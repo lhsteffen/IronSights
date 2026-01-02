@@ -6,15 +6,20 @@
  */
 
 class Lift {
+  int id;
   String name;
   bool barbell;
   int light;
   int heavy;
   String desc;
 
-  Lift(this.name, this.barbell, this.light, this.heavy, this.desc);
+  Lift(this.id, this.name, this.barbell, this.light, this.heavy, this.desc);
 
   // Begin getter functions
+  int getId() {
+    return id;
+  }
+
   String getName() {
     return name;
   }
@@ -37,6 +42,10 @@ class Lift {
   // End getter functions
 
   // Begin change functions
+  void changeId(int id) {
+    this.id = id;
+  }
+
   void changeName(String name) {
     this.name = name;
   }

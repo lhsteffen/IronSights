@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:iron_sights/main.dart';
 import 'package:provider/provider.dart';
+import 'new_lift.dart';
 import 'lift_view.dart';
 import 'lift.dart';
 
@@ -23,36 +24,50 @@ class LiftList extends StatelessWidget {
     List<Lift> lifts = appState.liftItems;
 
     return Scaffold(
-        body: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(bottom: 8, top: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Order by",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 8, right: 8),
-                    child: Icon(
-                        Icons.arrow_drop_down,
-                        color: Colors.black,
-                        size: 16
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Expanded(
-              child: LiftView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (context) => const NewLift(),
             )
-          ],
-        )
+          );
+        },
+        foregroundColor: Colors.white,
+        backgroundColor: Colors.blueGrey,
+        shape: CircleBorder(),
+        child: const Icon(Icons.add),
+      ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(bottom: 8, top: 8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                Text(
+                  "Order by",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black87,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 8, right: 8),
+                  child: Icon(
+                      Icons.arrow_drop_down,
+                      color: Colors.black,
+                      size: 16
+                  ),
+                )
+              ],
+            ),
+          ),
+          Expanded(
+            child: LiftView(),
+          )
+        ],
+      )
     );
   }
 }

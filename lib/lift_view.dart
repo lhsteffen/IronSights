@@ -1,7 +1,10 @@
-/* lift_view.dart defines the LiftView class
+/* lift_view.dart defines the LiftView and LiftDetail classes
  *
- * The LiftView function is used to display a Lift item on the screen
+ * The LiftView widget is used to display a Lift item on the screen
  * for user interaction
+ *
+ * The LiftDetail widget defines the page displayed when a user taps on
+ * a lift, giving more details about the specified lift.
  *
  * Created by: Luke Steffen
  * Date: 10/25/2020
