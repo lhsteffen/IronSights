@@ -31,13 +31,114 @@ class _NewLiftState extends State<NewLift> {
       appBar: AppBar(
         title: Text("New Lift"),
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Text("New ID: ${newId}"),
-          )
-        ],
-      ),
+      body: Flexible(
+        child: Column(
+          children: [
+            Text(
+              "Lift Name",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                )
+              ),
+            ),
+            const SizedBox(
+              height: 10.0,
+            ),
+            Flexible(
+              child: Row(
+                children: [
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Heavy Weight",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        Flexible(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))
+                              )
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 5.0,),
+                  Flexible(
+                    child: Column(
+                      children: [
+                        Text(
+                          "Light Weight",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        Flexible(
+                          child: TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(10.0))
+                              )
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  )
+                ],
+              ),
+            ),
+            Text(
+              "Barbell",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            Checkbox(
+              value: false,
+              onChanged: (bool? value) {
+                print("Hello");
+              }
+            ),
+            Text(
+              "Description",
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+            TextFormField(
+              keyboardType: TextInputType.multiline,
+              maxLines: 5,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+                )
+              ),
+            ),
+          ],
+        ),
+      )
     );
   }
 }
