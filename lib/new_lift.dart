@@ -27,6 +27,8 @@ class _NewLiftState extends State<NewLift> {
     var appState = context.watch<IronState>();
     int newId = appState.getNewestId();
 
+    newLift.changeId(newId);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("New Lift"),
