@@ -20,14 +20,14 @@ class NewLift extends StatefulWidget {
 }
 
 class _NewLiftState extends State<NewLift> {
-  late Lift newLift;
+  Lift newLift = Lift.emptyLift();
 
   @override
   Widget build(BuildContext context) {
     var appState = context.watch<IronState>();
     int newId = appState.getNewestId();
 
-    newLift.changeId(newId);
+    newLift.setId(newId);
 
     return Scaffold(
       appBar: AppBar(
@@ -55,6 +55,8 @@ class _NewLiftState extends State<NewLift> {
               height: 10.0,
             ),
             Flexible(
+              fit: FlexFit.loose,
+              flex: 1,
               child: Row(
                 children: [
                   Flexible(
@@ -82,6 +84,7 @@ class _NewLiftState extends State<NewLift> {
                   ),
                   const SizedBox(width: 5.0,),
                   Flexible(
+                    fit: FlexFit.loose,
                     child: Column(
                       children: [
                         Text(
@@ -93,6 +96,7 @@ class _NewLiftState extends State<NewLift> {
                           ),
                         ),
                         Flexible(
+                          fit: FlexFit.loose,
                           child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(

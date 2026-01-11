@@ -6,13 +6,14 @@
  */
 
 class Lift {
-  int id;
-  String name;
-  bool barbell;
-  int light;
-  int heavy;
-  String desc;
+  int id = -1;
+  String name = "";
+  bool barbell = false;
+  int light = -1;
+  int heavy = -1;
+  String desc = "";
 
+  Lift.emptyLift();
   Lift(this.id, this.name, this.barbell, this.light, this.heavy, this.desc);
 
   // Begin getter functions
@@ -42,27 +43,27 @@ class Lift {
   // End getter functions
 
   // Begin change functions
-  void changeId(int id) {
+  void setId(int id) {
     this.id = id;
   }
 
-  void changeName(String name) {
+  void setName(String name) {
     this.name = name;
   }
 
-  void changeBarbell(bool barbell) {
+  void setBarbell(bool barbell) {
     this.barbell = barbell;
   }
 
-  void changeLight(int light) {
+  void setLight(int light) {
     this.light = light;
   }
 
-  void changeHeavy(int heavy) {
+  void setHeavy(int heavy) {
     this.heavy = heavy;
   }
 
-  void changeDescription(String desc) {
+  void setDescription(String desc) {
     this.desc = desc;
   }
 
