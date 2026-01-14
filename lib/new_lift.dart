@@ -54,6 +54,9 @@ class _NewLiftState extends State<NewLift> {
             const SizedBox(
               height: 10.0,
             ),
+            Text(
+              ""
+            ),
             Flexible(
               fit: FlexFit.loose,
               flex: 1,

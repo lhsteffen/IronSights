@@ -5,16 +5,29 @@
  * list of lifts for the user to interact with.
  */
 
+enum Load { work, light, heavy }
+
 class Lift {
   int id = -1;
   String name = "";
   bool barbell = false;
-  int light = -1;
-  int heavy = -1;
+  bool lightHeavySplit = false;
+  int? work = -1;
+  int? light = -1;
+  int? heavy = -1;
   String desc = "";
 
   Lift.emptyLift();
-  Lift(this.id, this.name, this.barbell, this.light, this.heavy, this.desc);
+
+  Lift.workWeightOnly(this.id, this.name, this.barbell, this.work, this.desc);
+
+  Lift.lightHeavy(this.id, this.name, this.barbell, this.light, this.heavy,
+      this.desc) {
+    lightHeavySplit = true;
+  }
+
+  Lift(this.id, this.name, this.barbell, this.lightHeavySplit, this.work,
+      this.light, this.heavy, this.desc);
 
   // Begin getter functions
   int getId() {
@@ -25,21 +38,30 @@ class Lift {
     return name;
   }
 
+  bool isLightHeavy() {
+    return lightHeavySplit;
+  }
+
   bool isBarbell() {
     return barbell;
   }
 
+  int getWork() {
+    return work!;
+  }
+
   int getLight() {
-    return light;
+    return light!;
   }
 
   int getHeavy() {
-    return heavy;
+    return heavy!;
   }
 
   String getDescription() {
     return desc;
   }
+
   // End getter functions
 
   // Begin change functions
@@ -53,6 +75,14 @@ class Lift {
 
   void setBarbell(bool barbell) {
     this.barbell = barbell;
+  }
+
+  void setLightHeavy(bool lightHeavy) {
+    lightHeavySplit = lightHeavy;
+  }
+
+  void setWork(int work) {
+    this.work = work;
   }
 
   void setLight(int light) {
@@ -69,99 +99,43 @@ class Lift {
 
   void increaseByFive(String type) {
     if (type == "light") {
-      light = light + 5;
+      light = light! + 5;
     } else if (type == "heavy") {
-      heavy = heavy + 5;
+      heavy = heavy! + 5;
     } else {
       print("ERROR: Incorrect addition, increaseByFive(String type)");
     }
   }
+
   // End change functions
 
-  Map<double, int> getPlatesLight() {
+  Map<double, int> getPlates(Load load) {
+    int? loadWeight = 0;
 
-    Map<double, int> plates = {};
-    int weight = light - 45;
-    int fortyFive = 0;
-    int thirtyFive = 0;
-    int twentyFive = 0;
-    int ten = 0;
-    int five = 0;
-    int twoPointFive = 0;
+    switch (load) {
+      case Load.work:
+        loadWeight = work;
 
-    while (weight > 0) {
-      if (weight - 90 >= 0) {
-        fortyFive += 1;
-        weight = weight - 90;
-      } else if (weight - 70 >= 0) {
-        thirtyFive += 1;
-        weight = weight - 70;
-      } else if (weight - 50 >= 0) {
-        twentyFive += 1;
-        weight = weight - 50;
-      } else if (weight - 20 >= 0) {
-        ten += 1;
-        weight = weight - 20;
-      } else if (weight - 10 >= 0) {
-        five += 1;
-        weight = weight - 10;
-      } else if (weight - 5 >= 0) {
-        twoPointFive += 1;
-        weight = weight - 5;
+      case Load.light:
+        loadWeight = light;
+
+      case Load.heavy:
+        loadWeight = heavy;
+    }
+
+    final weights = [45.0, 35.0, 25.0, 10.0, 5.0, 2.5];
+    double remaining = (loadWeight! - 45) / 2;
+
+    final result = <double, int>{for (final w in weights) w: 0};
+
+    for (final w in weights) {
+      final count = (remaining / w).floor();
+      if (count > 0) {
+        result[w] = count;
+        remaining -= count * w;
       }
     }
 
-    plates[45] = fortyFive;
-    plates[35] = thirtyFive;
-    plates[25] = twentyFive;
-    plates[10] = ten;
-    plates[5] = five;
-    plates[2.5] = twoPointFive;
-
-    return plates;
+    return result;
   }
-
-  Map<double, int> getPlatesHeavy() {
-
-    Map<double, int> plates = {};
-    int weight = heavy - 45;
-    int fortyFive = 0;
-    int thirtyFive = 0;
-    int twentyFive = 0;
-    int ten = 0;
-    int five = 0;
-    int twoPointFive = 0;
-
-    while (weight > 0) {
-      if (weight - 90 >= 0) {
-        fortyFive += 1;
-        weight = weight - 90;
-      } else if (weight - 70 >= 0) {
-        thirtyFive += 1;
-        weight = weight - 70;
-      } else if (weight - 50 >= 0) {
-        twentyFive += 1;
-        weight = weight - 50;
-      } else if (weight - 20 >= 0) {
-        ten += 1;
-        weight = weight - 20;
-      } else if (weight - 10 >= 0) {
-        five += 1;
-        weight = weight - 10;
-      } else if (weight - 5 >= 0) {
-        twoPointFive += 1;
-        weight = weight - 5;
-      }
-    }
-
-    plates[45] = fortyFive;
-    plates[35] = thirtyFive;
-    plates[25] = twentyFive;
-    plates[10] = ten;
-    plates[5] = five;
-    plates[2.5] = twoPointFive;
-
-    return plates;
-  }
-
 }

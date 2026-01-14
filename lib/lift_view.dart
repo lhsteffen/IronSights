@@ -52,9 +52,9 @@ class LiftView extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(
-              children: <Widget>[
+              children: [
                 Row(
-                  children: <Widget>[
+                  children: [
                     Expanded(
                       child: Container(
                         padding: const EdgeInsets.only(bottom: 8, top: 8, left: 10),
@@ -77,50 +77,72 @@ class LiftView extends StatelessWidget {
                     )
                   ],
                 ),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
-                        child: RichText(
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: "Light: ",
-                                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                              ),
-                              TextSpan(
-                                text: "${lifts[index].getLight()} lbs",
-                                style: TextStyle(color: Colors.black87)
-                              ),
-                            ]
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Center (
-                          child: Container(
-                            child: RichText(
-                              text: TextSpan(
+                if (lifts[index].lightHeavySplit)
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
+                          child: RichText(
+                            text: TextSpan(
                                 children: <TextSpan>[
                                   TextSpan(
-                                    text: "Heavy: ",
-                                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                      text: "Light: ",
+                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
                                   ),
                                   TextSpan(
-                                    text: "${lifts[index].getHeavy()} lbs",
-                                    style: TextStyle(color: Colors.black87)
+                                      text: "${lifts[index].getLight()} lbs",
+                                      style: TextStyle(color: Colors.black87)
                                   ),
                                 ]
-                              ),
                             ),
                           ),
+                        ),
+                        Expanded(
+                          child: Center (
+                            child: Container(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: "Heavy: ",
+                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                    ),
+                                    TextSpan(
+                                      text: "${lifts[index].getHeavy()} lbs",
+                                      style: TextStyle(color: Colors.black87)
+                                    ),
+                                  ]
+                                ),
+                              ),
+                            ),
+                          )
                         )
-                      )
-                    ],
-                  ),
-                )
+                      ],
+                    ),
+                  )
+                else
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
+                      child: RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: "Weight: ",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            ),
+                            TextSpan(
+                              text: "${lifts[index].work} lbs",
+                              style: TextStyle(color: Colors.black87)
+                            )
+                          ]
+                        )
+                      ),
+                    ),
+                  )
               ],
             ),
           ),
@@ -173,47 +195,31 @@ class LiftDetails extends StatelessWidget {
                   )
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "Heavy: ",
-                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                            ),
-                            TextSpan(
-                              text: "${lift.heavy} lbs",
-                              style: TextStyle(color: Colors.black87)
-                            ),
-                          ]
+              if (lift.lightHeavySplit)
+                LightHeavyRow(lift: lift)
+              else
+                Row(
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: RichText(
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: "Weight: ",
+                                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                              ),
+                              TextSpan(
+                                text: "${lift.work} lbs",
+                                style: TextStyle(color: Colors.black87)
+                              ),
+                            ]
+                          )
                         ),
-                      ),
+                      )
                     )
-                  ),
-                  SizedBox(width: 24,),
-                  Expanded(
-                    child: Center(
-                      child: RichText(
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: "Light: ",
-                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                            ),
-                            TextSpan(
-                              text: "${lift.light} lbs",
-                              style: TextStyle(color: Colors.black87)
-                            ),
-                          ]
-                        ),
-                      ),
-                    )
-                  )
-                ],
-              ),
+                  ],
+                ),
               if (lift.barbell)
                 Padding(
                   padding: EdgeInsets.only(top: 20),
@@ -228,22 +234,28 @@ class LiftDetails extends StatelessWidget {
                         )
                       ),
                       Divider(),
-                      Column(
-                        children: [
-                          Text(
-                            "Heavy",
-                            style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                          ),
-                          PlateRow(plates: lift.getPlatesHeavy()),
-                          SizedBox(height: 10),
-                          Divider(),
-                          Text(
-                            "Light",
-                            style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                          ),
-                          PlateRow(plates: lift.getPlatesLight()),
-                        ],
-                      ),
+                      if (lift.lightHeavySplit)
+                        Column(
+                          children: [
+                            Text(
+                              "Heavy",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            ),
+                            PlateRow(plates: lift.getPlates(Load.heavy)),
+                            SizedBox(height: 10),
+                            Divider(),
+                            Text(
+                              "Light",
+                              style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            ),
+                            PlateRow(plates: lift.getPlates(Load.light)),
+                          ],
+                        )
+                      else
+                        Padding(
+                          padding: EdgeInsets.only(top: 10, bottom: 10),
+                          child: PlateRow(plates: lift.getPlates(Load.work)),
+                        ),
                       Divider()
                     ],
                   )
@@ -315,6 +327,58 @@ class LiftDetails extends StatelessWidget {
           )
         )
       ),
+    );
+  }
+}
+
+class LightHeavyRow extends StatelessWidget {
+  const LightHeavyRow({super.key, required this.lift});
+  const LightHeavyRow.otherConstructor(this.lift);
+
+  final Lift lift;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "Heavy: ",
+                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                  ),
+                  TextSpan(
+                    text: "${lift.heavy} lbs",
+                    style: TextStyle(color: Colors.black87)
+                  ),
+                ]
+              ),
+            ),
+          )
+        ),
+        SizedBox(width: 24,),
+        Expanded(
+          child: Center(
+            child: RichText(
+              text: TextSpan(
+                children: <TextSpan>[
+                  TextSpan(
+                    text: "Light: ",
+                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                  ),
+                  TextSpan(
+                    text: "${lift.light} lbs",
+                    style: TextStyle(color: Colors.black87)
+                  ),
+                ]
+              ),
+            ),
+          )
+        )
+      ],
     );
   }
 }
