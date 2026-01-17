@@ -38,149 +38,163 @@ class _NewLiftState extends State<NewLift> {
       appBar: AppBar(
         title: Text("New Lift"),
       ),
-      body: Flexible(
-        child: Column(
-          children: [
-            Text(
-              "Lift Name",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500
-              ),
+      body: Column(
+        children: [
+          Text(
+            "Lift Name",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                )
-              ),
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))
+              )
             ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            ToggleButtons(
-              direction: vertical ? Axis.vertical : Axis.horizontal,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              constraints: const BoxConstraints(minHeight: 40.0, minWidth: 80.0),
-              isSelected: _selectedWeightType,
-              onPressed: (int index) {
-                setState(() {
-                  for (int i = 0; i < _selectedWeightType.length; i++) {
-                    _selectedWeightType[i] = i == index;
-                  }
-                });
-              },
-              children: weightTypes,
-            ),
-            Text(
-              "Work Weight",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            Flexible(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))
-                  )
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          ToggleButtons(
+            direction: vertical ? Axis.vertical : Axis.horizontal,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            constraints: const BoxConstraints(minHeight: 40.0, minWidth: 80.0),
+            isSelected: _selectedWeightType,
+            onPressed: (int index) {
+              setState(() {
+                for (int i = 0; i < _selectedWeightType.length; i++) {
+                  _selectedWeightType[i] = i == index;
+                }
+              });
+            },
+            children: weightTypes,
+          ),
+          WeightEntry(typeList: _selectedWeightType),
+          Row(
+            children: [
+              Text(
+                "Barbell",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500
                 ),
               ),
-            ),
-            Flexible(
-              fit: FlexFit.loose,
-              flex: 1,
-              child: Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      children: [
-                        Text(
-                          "Light Weight",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        Flexible(
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))
-                              )
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 5.0),
-                  Flexible(
-                    fit: FlexFit.loose,
-                    child: Column(
-                      children: [
-                        Text(
-                          "Heavy Weight",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        Flexible(
-                          fit: FlexFit.loose,
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))
-                              )
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  )
-                ],
+              Checkbox(
+                value: false,
+                onChanged: (bool? value) {
+                  print("Hello");
+                }
               ),
+            ],
+          ),
+          Text(
+            "Description",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.grey,
+              fontWeight: FontWeight.w500
             ),
-            Text(
-              "Barbell",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500
-              ),
+          ),
+          TextFormField(
+            keyboardType: TextInputType.multiline,
+            maxLines: 5,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))
+              )
             ),
-            Checkbox(
-              value: false,
-              onChanged: (bool? value) {
-                print("Hello");
-              }
-            ),
-            Text(
-              "Description",
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.multiline,
-              maxLines: 5,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-                )
-              ),
-            ),
-          ],
-        ),
-      )
+          ),
+        ],
+      ),
     );
+  }
+}
+
+class WeightEntry extends StatelessWidget {
+  const WeightEntry({super.key, required this.typeList});
+  const WeightEntry.otherConstructor(this.typeList);
+
+  final List<bool> typeList;
+
+  @override
+  Widget build(BuildContext context) {
+    if (typeList[0] && !typeList[1]) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Work Weight",
+            style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+            ),
+          ),
+          Flexible(
+            child: TextField(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                  )
+              ),
+            ),
+          )
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Flexible(
+            fit: FlexFit.loose,
+            child: Column(
+              children: [
+                Text(
+                  "Light Weight",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                    )
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 5.0),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Column(
+              children: [
+                Text(
+                  "Heavy Weight",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                    )
+                  ),
+                ),
+              ],
+            )
+          )
+        ],
+      );
+    }
   }
 }
