@@ -8,6 +8,7 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:iron_sights/main.dart';
 import 'package:provider/provider.dart';
 import 'lift.dart';
@@ -25,7 +26,32 @@ class _NewLiftState extends State<NewLift> {
   Lift newLift = Lift.emptyLift();
 
   final List<bool> _selectedWeightType = <bool>[true, false];
+  final List<bool> _selectedBarbell = <bool>[false];
   bool vertical = false;
+
+  void changeWorkWeight(int? work) {
+    setState(() {
+      if (work != null) {
+        newLift.work = work;
+      }
+    });
+  }
+
+  void changeLightWeight(int? light) {
+    setState(() {
+      if (light != null) {
+        newLift.light = light;
+      }
+    });
+  }
+
+  void changeHeavyWeight(int? heavy) {
+    setState(() {
+      if (heavy != null) {
+        newLift.heavy = heavy;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +63,15 @@ class _NewLiftState extends State<NewLift> {
     return Scaffold(
       appBar: AppBar(
         title: Text("New Lift"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              appState.addLift(newLift);
+              Navigator.pop(context);
+            },
+            child: Text("Save")
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -54,6 +89,9 @@ class _NewLiftState extends State<NewLift> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0))
               )
             ),
+            onChanged: (text) {
+              newLift.name = text;
+            },
           ),
           const SizedBox(
             height: 10.0,
@@ -68,28 +106,24 @@ class _NewLiftState extends State<NewLift> {
                 for (int i = 0; i < _selectedWeightType.length; i++) {
                   _selectedWeightType[i] = i == index;
                 }
+                newLift.lightHeavySplit = _selectedWeightType[1];
               });
             },
             children: weightTypes,
           ),
-          WeightEntry(typeList: _selectedWeightType),
-          Row(
-            children: [
-              Text(
-                "Barbell",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w500
-                ),
-              ),
-              Checkbox(
-                value: false,
-                onChanged: (bool? value) {
-                  print("Hello");
-                }
-              ),
-            ],
+          WeightEntry(typeList: _selectedWeightType, setWork: changeWorkWeight, setLight: changeLightWeight, setHeavy: changeHeavyWeight),
+          ToggleButtons(
+            direction: vertical ? Axis.vertical : Axis.horizontal,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            constraints: const BoxConstraints(minHeight: 40.0, minWidth: 80.0),
+            isSelected: _selectedBarbell,
+            onPressed: (int index) {
+              setState(() {
+                _selectedBarbell[index] = !_selectedBarbell[index];
+                newLift.barbell = _selectedBarbell[index];
+              });
+            },
+            children: [Text("Barbell")],
           ),
           Text(
             "Description",
@@ -107,7 +141,20 @@ class _NewLiftState extends State<NewLift> {
                 borderRadius: BorderRadius.all(Radius.circular(10.0))
               )
             ),
+            onChanged: (text) {
+              newLift.desc = text;
+            },
           ),
+          SizedBox(height: 20),
+          Text(
+            "Add to Routines",
+            style: TextStyle(
+                fontSize: 16,
+                color: Colors.black87,
+                fontWeight: FontWeight.w500
+            ),
+          ),
+          Divider(),
         ],
       ),
     );
@@ -115,10 +162,13 @@ class _NewLiftState extends State<NewLift> {
 }
 
 class WeightEntry extends StatelessWidget {
-  const WeightEntry({super.key, required this.typeList});
-  const WeightEntry.otherConstructor(this.typeList);
+  WeightEntry({super.key, required this.typeList, required this.setWork, required this.setLight, required this.setHeavy});
+  WeightEntry.otherConstructor(this.typeList, this.setWork, this.setLight, this.setHeavy);
 
   final List<bool> typeList;
+  final void Function(int?) setWork;
+  final void Function(int?) setLight;
+  final void Function(int?) setHeavy;
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +186,18 @@ class WeightEntry extends StatelessWidget {
           ),
           Flexible(
             child: TextField(
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly
+              ],
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))
                   )
               ),
+              onChanged: (text) {
+                setWork(int.parse(text));
+              },
             ),
           )
         ],
@@ -161,11 +218,18 @@ class WeightEntry extends StatelessWidget {
                   ),
                 ),
                 TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))
                     )
                   ),
+                  onChanged: (text) {
+                    setLight(int.parse(text));
+                  },
                 ),
               ],
             ),
@@ -184,11 +248,18 @@ class WeightEntry extends StatelessWidget {
                   ),
                 ),
                 TextField(
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))
                     )
                   ),
+                  onChanged: (text) {
+                    setHeavy(int.parse(text));
+                  },
                 ),
               ],
             )
