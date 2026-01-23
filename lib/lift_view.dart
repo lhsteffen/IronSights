@@ -15,6 +15,7 @@
 import 'package:flutter/material.dart';
 import 'package:iron_sights/main.dart';
 import 'package:provider/provider.dart';
+import 'edit_lift.dart';
 import 'lift.dart';
 
 class LiftView extends StatelessWidget {
@@ -43,7 +44,12 @@ class LiftView extends StatelessWidget {
             );
           },
           onDoubleTap: () {
-            print("Edit");
+            Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (context) => EditLift(lift: lifts[index]),
+                )
+            );
           },
           child: Container(
             height: 80,
@@ -69,10 +75,18 @@ class LiftView extends StatelessWidget {
                     ),
                     Container (
                       padding: const EdgeInsets.only(right: 10),
-                      child: Icon(
-                        Icons.edit,
+                      child: IconButton(
+                        icon: Icon(Icons.edit),
                         color: Colors.blueGrey,
-                        size: 20,
+                        iconSize: 20,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute<void>(
+                              builder: (context) => EditLift(lift: lifts[index]),
+                            )
+                          );
+                        },
                       ),
                     )
                   ],

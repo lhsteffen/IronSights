@@ -12,9 +12,9 @@ class Lift {
   String name = "";
   bool barbell = false;
   bool lightHeavySplit = false;
-  int? work = -1;
-  int? light = -1;
-  int? heavy = -1;
+  int? work = 0;
+  int? light = 0;
+  int? heavy = 0;
   String desc = "";
 
   Lift.emptyLift();

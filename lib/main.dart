@@ -37,6 +37,11 @@ class IronState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void editLift(Lift editLift) {
+    liftItems[liftItems.indexWhere((lift) => lift.id == editLift.id)] = editLift;
+    notifyListeners();
+  }
+
   int getNewestId() {
     List<Lift> liftCopy = liftItems;
     if(liftCopy.isNotEmpty) {
