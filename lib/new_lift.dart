@@ -13,7 +13,7 @@ import 'package:iron_sights/main.dart';
 import 'package:provider/provider.dart';
 import 'lift.dart';
 
-const List<Widget> weightTypes = <Widget>[Padding(padding: EdgeInsets.only(left: 10, right: 10), child: Text("Work")), Padding(padding: EdgeInsets.only(left: 10, right: 10), child: Text("Light/Heavy"))];
+const List<Widget> weightTypes = <Widget>[Padding(padding: EdgeInsets.only(left: 10, right: 10), child: Text("Work")), Padding(padding: EdgeInsets.only(left: 10, right: 10), child: Text("Light/Heavy")), Padding(padding: EdgeInsets.only(left: 10, right: 10), child: Text("Body Weight"))];
 
 class NewLift extends StatefulWidget {
   const NewLift({super.key});
@@ -25,7 +25,7 @@ class NewLift extends StatefulWidget {
 class _NewLiftState extends State<NewLift> {
   Lift newLift = Lift.emptyLift();
 
-  final List<bool> _selectedWeightType = <bool>[true, false];
+  final List<bool> _selectedWeightType = <bool>[true, false, false];
   final List<bool> _selectedBarbell = <bool>[false];
   bool vertical = false;
 
@@ -106,7 +106,18 @@ class _NewLiftState extends State<NewLift> {
                 for (int i = 0; i < _selectedWeightType.length; i++) {
                   _selectedWeightType[i] = i == index;
                 }
-                newLift.lightHeavySplit = _selectedWeightType[1];
+
+                switch (index) {
+                  case 0:
+                    newLift.type = WeightType.work;
+                    break;
+                  case 1:
+                    newLift.type = WeightType.lightHeavy;
+                    break;
+                  case 2:
+                    newLift.type = WeightType.body;
+                    break;
+                }
               });
             },
             children: weightTypes,
@@ -172,7 +183,7 @@ class WeightEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (typeList[0] && !typeList[1]) {
+    if (typeList[0]) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -198,6 +209,30 @@ class WeightEntry extends StatelessWidget {
               onChanged: (text) {
                 setWork(int.parse(text));
               },
+            ),
+          )
+        ],
+      );
+    } else if (typeList[2]) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Body Weight",
+            style: TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+                fontWeight: FontWeight.w500
+            ),
+          ),
+          Flexible(
+            child: TextField(
+              readOnly: true,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0))
+                  )
+              ),
             ),
           )
         ],

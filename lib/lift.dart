@@ -6,12 +6,13 @@
  */
 
 enum Load { work, light, heavy }
+enum WeightType { work, lightHeavy, body }
 
 class Lift {
   int id = -1;
   String name = "";
   bool barbell = false;
-  bool lightHeavySplit = false;
+  WeightType type = WeightType.work;
   int? work = 0;
   int? light = 0;
   int? heavy = 0;
@@ -23,10 +24,14 @@ class Lift {
 
   Lift.lightHeavy(this.id, this.name, this.barbell, this.light, this.heavy,
       this.desc) {
-    lightHeavySplit = true;
+    type = WeightType.lightHeavy;
   }
 
-  Lift(this.id, this.name, this.barbell, this.lightHeavySplit, this.work,
+  Lift.bodyWeight(this.id, this.name, this.desc) {
+    type = WeightType.body;
+  }
+
+  Lift(this.id, this.name, this.barbell, this.type, this.work,
       this.light, this.heavy, this.desc);
 
   // Begin getter functions
@@ -38,8 +43,20 @@ class Lift {
     return name;
   }
 
+  WeightType getWeightType() {
+    return type;
+  }
+
+  bool isWorkWeight() {
+    return type == WeightType.work;
+  }
+
   bool isLightHeavy() {
-    return lightHeavySplit;
+    return type == WeightType.lightHeavy;
+  }
+
+  bool isBodyWeight() {
+    return type == WeightType.body;
   }
 
   bool isBarbell() {
@@ -77,8 +94,8 @@ class Lift {
     this.barbell = barbell;
   }
 
-  void setLightHeavy(bool lightHeavy) {
-    lightHeavySplit = lightHeavy;
+  void setWeightType(WeightType type) {
+    this.type = type;
   }
 
   void setWork(int work) {

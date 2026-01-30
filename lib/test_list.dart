@@ -13,8 +13,9 @@ List<Lift> createList() {
   Lift l2 = Lift.workWeightOnly(2, "Dumbbell Chest Press", false, 70, "Chest press");
   Lift l3 = Lift.lightHeavy(3, "Incline Chest Press", false, 60, 75, "Incline chest press");
   Lift l4 = Lift.workWeightOnly(4, "Bench Press", true, 205, "Bench Press");
-  Lift l5 = Lift(5, "Deadlift", true, true, 285, 225, 315, "Deadlift");
-  Lift l6 = Lift(6, "Squat", true, true, 205, 185, 225, "Barbell squats");
+  Lift l5 = Lift(5, "Deadlift", true, WeightType.work, 285, 225, 315, "Deadlift");
+  Lift l6 = Lift(6, "Squat", true, WeightType.lightHeavy, 205, 185, 225, "Barbell squats");
+  Lift l7 = Lift.bodyWeight(7, "Push Ups", "Push Ups");
 
   list.add(l1);
   list.add(l2);
@@ -22,6 +23,7 @@ List<Lift> createList() {
   list.add(l4);
   list.add(l5);
   list.add(l6);
+  list.add(l7);
 
   return list;
 }

@@ -91,7 +91,7 @@ class LiftView extends StatelessWidget {
                     )
                   ],
                 ),
-                if (lifts[index].lightHeavySplit)
+                if (lifts[index].type == WeightType.lightHeavy)
                   Expanded(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -134,6 +134,23 @@ class LiftView extends StatelessWidget {
                           )
                         )
                       ],
+                    ),
+                  )
+                else if (lifts[index].type == WeightType.body)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
+                      child: RichText(
+                        text: TextSpan(
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: "Body Weight",
+                                style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                            ),
+                          ]
+                        )
+                      ),
                     ),
                   )
                 else
@@ -209,8 +226,16 @@ class LiftDetails extends StatelessWidget {
                   )
                 ),
               ),
-              if (lift.lightHeavySplit)
+              if (lift.type == WeightType.lightHeavy)
                 LightHeavyRow(lift: lift)
+              else if (lift.type == WeightType.body)
+                Text(
+                  "Body Weight",
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                    fontWeight: FontWeight.bold
+                  ),
+                )
               else
                 Row(
                   children: [
@@ -248,7 +273,7 @@ class LiftDetails extends StatelessWidget {
                         )
                       ),
                       Divider(),
-                      if (lift.lightHeavySplit)
+                      if (lift.type == WeightType.lightHeavy)
                         Column(
                           children: [
                             Text(
@@ -321,22 +346,6 @@ class LiftDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              // Row(
-              //   children: [
-              //     RichText(
-              //         text: TextSpan(
-              //             text: "Barbell: ",
-              //             style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-              //         )
-              //     ),
-              //     Checkbox(
-              //       value: lift.isBarbell(),
-              //       onChanged: (bool? value) {
-              //         print("check");
-              //       },
-              //     )
-              //   ],
-              // ),
             ]
           )
         )
