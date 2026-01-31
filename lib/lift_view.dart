@@ -100,16 +100,22 @@ class LiftView extends StatelessWidget {
                           padding: const EdgeInsets.only(bottom: 8, top: 8, left: 20),
                           child: RichText(
                             text: TextSpan(
-                                children: <TextSpan>[
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: "Light: ",
+                                  style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                ),
+                                if (lifts[index].measurement == WeightMeasurement.pounds)
                                   TextSpan(
-                                      text: "Light: ",
-                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                                  ),
+                                    text: "${lifts[index].light} lbs",
+                                    style: TextStyle(color: Colors.black87)
+                                  )
+                                else
                                   TextSpan(
-                                      text: "${lifts[index].getLight()} lbs",
-                                      style: TextStyle(color: Colors.black87)
-                                  ),
-                                ]
+                                    text: "${lifts[index].light} kg",
+                                    style: TextStyle(color: Colors.black87)
+                                  )
+                              ]
                             ),
                           ),
                         ),
@@ -123,10 +129,16 @@ class LiftView extends StatelessWidget {
                                       text: "Heavy: ",
                                       style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
                                     ),
-                                    TextSpan(
-                                      text: "${lifts[index].getHeavy()} lbs",
-                                      style: TextStyle(color: Colors.black87)
-                                    ),
+                                    if (lifts[index].measurement == WeightMeasurement.pounds)
+                                      TextSpan(
+                                        text: "${lifts[index].heavy} lbs",
+                                        style: TextStyle(color: Colors.black87)
+                                      )
+                                    else
+                                      TextSpan(
+                                        text: "${lifts[index].heavy} kg",
+                                        style: TextStyle(color: Colors.black87)
+                                      )
                                   ]
                                 ),
                               ),
@@ -165,10 +177,16 @@ class LiftView extends StatelessWidget {
                               text: "Weight: ",
                               style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
                             ),
-                            TextSpan(
-                              text: "${lifts[index].work} lbs",
-                              style: TextStyle(color: Colors.black87)
-                            )
+                            if (lifts[index].measurement == WeightMeasurement.pounds)
+                              TextSpan(
+                                text: "${lifts[index].work} lbs",
+                                style: TextStyle(color: Colors.black87)
+                              )
+                            else
+                              TextSpan(
+                                text: "${lifts[index].work} kg",
+                                style: TextStyle(color: Colors.black87)
+                              )
                           ]
                         )
                       ),

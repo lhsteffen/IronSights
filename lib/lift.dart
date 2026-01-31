@@ -7,6 +7,7 @@
 
 enum Load { work, light, heavy }
 enum WeightType { work, lightHeavy, body }
+enum WeightMeasurement { pounds, kilograms }
 
 class Lift {
   int id = -1;
@@ -16,6 +17,7 @@ class Lift {
   int? work = 0;
   int? light = 0;
   int? heavy = 0;
+  WeightMeasurement measurement = WeightMeasurement.pounds;
   String desc = "";
 
   Lift.emptyLift();
@@ -125,6 +127,24 @@ class Lift {
   }
 
   // End change functions
+
+  void convertToKilograms() {
+    if (measurement == WeightMeasurement.pounds) {
+      work = (work! * 0.45359237).toInt();
+      light = (light! * 0.45359237).toInt();
+      heavy = (heavy! * 0.45359237).toInt();
+      measurement = WeightMeasurement.kilograms;
+    }
+  }
+
+  void convertToPounds() {
+    if (measurement == WeightMeasurement.kilograms) {
+      work = (work! * 2.20462).toInt();
+      light = (light! * 2.20462).toInt();
+      heavy = (heavy! * 2.20462).toInt();
+      measurement = WeightMeasurement.pounds;
+    }
+  }
 
   Map<double, int> getPlates(Load load) {
     int? loadWeight = 0;
