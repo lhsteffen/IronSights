@@ -121,26 +121,24 @@ class LiftView extends StatelessWidget {
                         ),
                         Expanded(
                           child: Center (
-                            child: Container(
-                              child: RichText(
-                                text: TextSpan(
-                                  children: <TextSpan>[
+                            child: RichText(
+                              text: TextSpan(
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: "Heavy: ",
+                                    style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
+                                  ),
+                                  if (lifts[index].measurement == WeightMeasurement.pounds)
                                     TextSpan(
-                                      text: "Heavy: ",
-                                      style: TextStyle(color: Colors.blueGrey, fontWeight: FontWeight.bold)
-                                    ),
-                                    if (lifts[index].measurement == WeightMeasurement.pounds)
-                                      TextSpan(
-                                        text: "${lifts[index].heavy} lbs",
-                                        style: TextStyle(color: Colors.black87)
-                                      )
-                                    else
-                                      TextSpan(
-                                        text: "${lifts[index].heavy} kg",
-                                        style: TextStyle(color: Colors.black87)
-                                      )
-                                  ]
-                                ),
+                                      text: "${lifts[index].heavy} lbs",
+                                      style: TextStyle(color: Colors.black87)
+                                    )
+                                  else
+                                    TextSpan(
+                                      text: "${lifts[index].heavy} kg",
+                                      style: TextStyle(color: Colors.black87)
+                                    )
+                                ]
                               ),
                             ),
                           )
@@ -210,7 +208,7 @@ class LiftDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Expanded(
           child: Column(

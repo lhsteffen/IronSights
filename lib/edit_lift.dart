@@ -231,6 +231,7 @@ class WeightEditEntry extends StatelessWidget {
           Flexible(
             child: TextFormField(
               readOnly: true,
+              enabled: false,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))

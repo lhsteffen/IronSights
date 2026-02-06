@@ -228,6 +228,8 @@ class WeightEntry extends StatelessWidget {
           Flexible(
             child: TextField(
               readOnly: true,
+              enableInteractiveSelection: false,
+              enabled: false,
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10.0))
